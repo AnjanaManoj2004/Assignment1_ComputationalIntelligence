@@ -44,20 +44,19 @@ def reconstruct_path(parent_node, goal):
         current_node = parent_node[current_node]
     return path[::-1]  # Reverse the path to get it from start to goal
 
-# Sample Graph (Adjacency Matrix) representing different locations
+# 0 = Golden Leaf, 1 = Residential Area, 2 = Strip Mall, 3 = Parking Lot, 4 = Burwood Teppanyaki House, 5 = Petrol Pump, 6 = Burwood One Shopping Centre
 adj_matrix = [
-    [0, 1, float('inf'), 2, 1, float('inf'), float('inf')],  # Golden Leaf
-    [1, 0, float('inf'), 6, float('inf'), 10, 7],            # Residential Area
+    [0, 1, float('inf'), float('inf'), 1, float('inf'), float('inf')],  # Golden Leaf
+    [1, 0, float('inf'), 8, float('inf'), 10, 7],            # Residential Area
     [float('inf'), float('inf'), 0, 1, float('inf'), float('inf'), float('inf')],  # Strip Mall
-    [2, 6, 1, 0, 3, float('inf'), float('inf')],             # Parking Lot
+    [float('inf'), 8, 1, 0, 3, float('inf'), float('inf')],             # Parking Lot
     [1, float('inf'), float('inf'), 3, 0, float('inf'), float('inf')],  # Teppanyaki
-    [float('inf'), 10, float('inf'), float('inf'), float('inf'), 0, 4],  # Petrol Pump
-    [float('inf'), 7, float('inf'), float('inf'), float('inf'), 4, 0]   # Burwood One Shopping Centre
+    [float('inf'), 10, float('inf'), float('inf'), float('inf'), 0, float('inf')],  # Petrol Pump
+    [float('inf'), 7, float('inf'), float('inf'), float('inf'), float('inf'), 0]   # Burwood One Shopping Centre
 ]
 
 # Asymmetric terrain penalties: uphill = higher penalty, downhill = lower
 terrain_costs = {
-    (0, 1): 1,  # Golden Leaf -> Residential Area (downhill)
     (1, 0): 3,  # Residential Area -> Golden Leaf (uphill)
     (3, 0): 1,  # Parking Lot -> Golden Leaf (downhill)
     (0, 3): 1,  # Golden Leaf -> Parking Lot (downhill)
